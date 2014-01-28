@@ -1,0 +1,130 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_modify adminmedia %}
+
+{% block extrahead %}{{ block.super }}
+{{ media }}
+
+{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}<link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/forms.css" />
+
+<style type="text/css">
+	{{ pygments_css|safe }}
+</style>
+
+{% endblock %}
+
+{% block coltype %}{% if ordered_objects %}colMS{% else %}colM{% endif %}{% endblock %}
+
+{% block bodyclass %}{{ opts.app_label }}-{{ opts.object_name.lower }} change-form{% endblock %}
+
+{% block breadcrumbs %}{% if not is_popup %}
+{# TODO: use admin reverse functionality in django 1.1 to get these URLs #}
+<div class="breadcrumbs">
+     <a href="/admin/">{% trans "Home" %}</a> &rsaquo;
+     <a href="/admin/remotelog/">{{ app_label|capfirst|escape }}</a> &rsaquo; 
+     {% if has_change_permission %}<a href="/admin/remotelog/logmessage/">{{ opts.verbose_name_plural|capfirst }}</a>{% else %}{{ opts.verbose_name_plural|capfirst }}{% endif %} &rsaquo; 
+     {% if add %}{% trans "View" %} {{ opts.verbose_name }}{% else %}{{ original|truncatewords:"18" }}{% endif %}
+</div>
+{% endif %}{% endblock %}
+
+{% block content %}
+<div id="content-main">
+
+<table>
+    <tr>
+        <th>date:</th>
+        <td>{{ message.date }}</td>
+    </tr>
+    <tr>
+        <th>remote_ip:</th>
+        <td>{{ message.remote_ip }}</td>
+    </tr>
+    <tr>
+        <th>remote_host:</th>
+        <td>{{ message.remote_host }}</td>
+    </tr>
+    <tr>
+        <th>levelno:</th>
+        <td>{{ message.levelno }}</td>
+    </tr>
+    <tr>
+        <th>levelname:</th>
+        <td>{{ message.levelname }}</td>
+    </tr>
+    <tr>
+        <th>name:</th>
+        <td>{{ message.name }}</td>
+    </tr>
+    <tr>
+        <th>module:</th>
+        <td>{{ message.module }}</td>
+    </tr>
+    <tr>
+        <th>filename:</th>
+        <td>{{ message.filename }}</td>
+    </tr>
+    <tr>
+        <th>pathname:</th>
+        <td>{{ message.pathname }}</td>
+    </tr>
+    <tr>
+        <th>funcName:</th>
+        <td>{{ message.funcName }}</td>
+    </tr>
+    <tr>
+        <th>lineno:</th>
+        <td>{{ message.lineno }}</td>
+    </tr>
+    <tr>
+        <th>msg:</th>
+        <td>{{ message.msg }}</td>
+    </tr>
+    <tr>
+        <th>exc_info:</th>
+        <td>{{ message.exc_info }}</td>
+    </tr>
+    <tr>
+        <th>exc_text:</th>
+        <td>{{ exc_text|safe }}</td>
+    </tr>
+    <tr>
+        <th>args:</th>
+        <td>{{ message.args }}</td>
+    </tr>
+    <tr>
+        <th>threadName:</th>
+        <td>{{ message.threadName }}</td>
+    </tr>
+    <tr>
+        <th>thread:</th>
+        <td>{{ message.thread }}</td>
+    </tr>
+    <tr>
+        <th>thread:</th>
+        <td>{{ message.thread }}</td>
+    </tr>
+    <tr>
+        <th>thread:</th>
+        <td>{{ message.thread }}</td>
+    </tr>
+    <tr>
+        <th>created:</th>
+        <td>{{ message.created }}</td>
+    </tr>
+    <tr>
+        <th>process:</th>
+        <td>{{ message.process }}</td>
+    </tr>
+    <tr>
+        <th>relativeCreated:</th>
+        <td>{{ message.relativeCreated }}</td>
+    </tr>
+    <tr>
+        <th>msecs:</th>
+        <td>{{ message.msecs }}</td>
+    </tr>
+</table>
+</div>
+{% endblock %}
